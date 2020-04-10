@@ -4,7 +4,7 @@ This project was based on the https://www.youtube.com/channel/UC4JX40jDee_tINbkj
 
 I trained his DNN model and made a CNN version. 
 This is the current version. 
-![ezgif.com-video-to-gif (1)](/home/tiagocabo/Documents/privateGit/number_guesser/images/ezgif.com-video-to-gif (1).gif)
+![ezgif.com-video-to-gif (1)](/images/ezgif.com-video-to-gif (1).gif)
 
 I follow the training using tensorboard. Check below the results. 
-![model_training](/home/tiagocabo/Documents/privateGit/number_guesser/images/model_training.png)
+![model_training](/images/model_training.png)
