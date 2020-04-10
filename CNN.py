@@ -50,7 +50,7 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram
 print('start fit')
 model.fit(x=x_train,
           y=y_train,
-          epochs=20,
+          epochs=100,
           validation_data=(x_test, y_test),
           callbacks=[tensorboard_callback])
 model.save('CNN_v0.model')
