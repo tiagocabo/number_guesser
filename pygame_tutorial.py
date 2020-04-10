@@ -120,8 +120,10 @@ def game_loop():
 		if y > display_height - 30 or y < 0:
 			crash(count)
 
-		if x + 50 >= thing_start_x and ((thing_start_y + thing_h >= y  >= thing_start_y) or (thing_start_y < y + 30 <= thing_start_y + thing_h)) :
+		if x + 50 >= thing_start_x and ((thing_start_y + thing_h >= y  >= thing_start_y)
+		                                or (thing_start_y < y + 30 <= thing_start_y + thing_h)) :
 			crash(count)
+
 		# increase frame change
 		pygame.display.update()
 		clock.tick(60)

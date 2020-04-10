@@ -1,2 +1,4 @@
-nbguesser_env/
+venv/
 .idea/
+logs/
+.ipynb_checkpoints/

@@ -1,15 +1,11 @@
-# https://github.com/techwithtim
-
 
 import sys, os
-
 import pygame
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 from tkinter import *
 from tkinter import messagebox
-
 
 class pixel(object):
     def __init__(self, x, y, width, height):
@@ -97,13 +93,17 @@ class grid(object):
             pass
 
     def convert_binary(self):
+        """
+        Converts the RGB values in each pixel to 0 and 1 as it is on the training dataset
+        Also shapes the matrix to (28, 28)
+        """
         li = self.pixels
 
         newMatrix = [[] for x in range(len(li))]
 
         for i in range(len(li)):
             for j in range(len(li[i])):
-                if li[i][j].color == (255,255,255):
+                if li[i][j].color == (255, 255, 255):
                     newMatrix[i].append(0)
                 else:
                     newMatrix[i].append(1)
@@ -119,8 +119,8 @@ class grid(object):
 
 
 def guess(li):
-    model = tf.keras.models.load_model('m.model')
-
+    model = tf.keras.models.load_model('CNN_v0.model')
+    li = np.reshape(li, (1,28, 28, 1))
     predictions = model.predict(li)
     print(predictions[0])
     t = (np.argmax(predictions[0]))
@@ -129,8 +129,8 @@ def guess(li):
     window.withdraw()
     messagebox.showinfo("Prediction", "I predict this number is a: " + str(t))
     window.destroy()
-    #plt.imshow(li[0], cmap=plt.cm.binary)
-    #plt.show()
+    # plt.imshow(li[0], cmap=plt.cm.binary)
+    # plt.show()
 
 
 def main():
@@ -142,8 +142,11 @@ def main():
                 run = False
             if event.type == pygame.KEYDOWN:
                 li = g.convert_binary()
+
                 guess(li)
+
                 g.generatePixels()
+
             if pygame.mouse.get_pressed()[0]:
 
                 pos = pygame.mouse.get_pos()
