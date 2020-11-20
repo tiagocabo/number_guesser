@@ -4,10 +4,10 @@ window.addEventListener('load', () => {
 
     //Resizing
 
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-  
-
+    //canvas.height = window.innerHeight;
+    //canvas.width = window.innerWidth;
+    canvas.height = 300;
+    canvas.width = 300;
     //variables
     let painting = false;
 
@@ -34,9 +34,6 @@ window.addEventListener('load', () => {
 
     }
 
-    function get_pixel_data(){
-        var imgData = ctx.getImageData(0, 0, canvas.height, canvas.width);
-    }
 
     function clean_data(){
         ctx.clearRect(0, 0, 1000, 1000);
@@ -51,7 +48,9 @@ window.addEventListener('load', () => {
     // bind event handler to clear button
     document.getElementById('clear').addEventListener('click', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        window.alert("cleared ");
+        var numbers = ctx.getImageData(0, 0, canvas.height, canvas.width);
+        console.log(numbers.data);
       }, false);
 
 })

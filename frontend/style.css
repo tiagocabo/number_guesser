@@ -10,7 +10,7 @@ box-sizing: border-box;
 
 #buttons {
     position: absolute;
-    top: 5px;
+    top: 305px;
     left: 10px;
   }
   #buttons > input {
