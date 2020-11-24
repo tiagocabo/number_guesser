@@ -46,11 +46,24 @@ window.addEventListener('load', () => {
     canvas.addEventListener('mouseup', endPosition);
     canvas.addEventListener('mousemove', draw);
     // bind event handler to clear button
-    document.getElementById('clear').addEventListener('click', function() {
+    document.getElementById('Predict').addEventListener('click', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        window.alert("cleared ");
+        //window.alert("cleared ");
         var numbers = ctx.getImageData(0, 0, canvas.height, canvas.width);
         console.log(numbers.data);
+
+        var http = new XMLHttpRequest();
+
+        http.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                document.getElementById('prediction_res').value = this.responseText;
+            }
+        };
+
+        http.open("GET", "http://localhost:5555/predict");
+        http.send();
+        
       }, false);
 
 })
