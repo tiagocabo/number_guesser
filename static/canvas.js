@@ -6,8 +6,8 @@ window.addEventListener('load', () => {
 
     //canvas.height = window.innerHeight;
     //canvas.width = window.innerWidth;
-    canvas.height = 300;
-    canvas.width = 300;
+    canvas.height = 28;
+    canvas.width = 28;
     //variables
     let painting = false;
 
@@ -35,11 +35,19 @@ window.addEventListener('load', () => {
     }
 
 
-    function clean_data(){
-        ctx.clearRect(0, 0, 1000, 1000);
-        
-        ctx.beginPath();
-    }
+    function download(filename, array) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(array));
+        element.setAttribute('download', filename);
+      
+        element.style.display = 'none';
+        document.body.appendChild(element);
+      
+        element.click();
+      
+        document.body.removeChild(element);
+      }
+
 
     //eventListeners
     canvas.addEventListener('mousedown', startPosition);
@@ -47,9 +55,10 @@ window.addEventListener('load', () => {
     canvas.addEventListener('mousemove', draw);
     // bind event handler to clear button
     document.getElementById('Predict').addEventListener('click', function() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         //window.alert("cleared ");
         var numbers = ctx.getImageData(0, 0, canvas.height, canvas.width);
+        //ctx.putImageData(numbers, 10, 10);
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
         console.log(numbers.data);
 
         var http = new XMLHttpRequest();
@@ -61,8 +70,12 @@ window.addEventListener('load', () => {
             }
         };
 
+        download("numbers", numbers.data);
+
+
         http.open("GET", "http://localhost:5555/predict");
         http.send();
+
         
       }, false);
 
