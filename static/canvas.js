@@ -59,22 +59,31 @@ window.addEventListener('load', () => {
         var numbers = ctx.getImageData(0, 0, canvas.height, canvas.width);
         //ctx.putImageData(numbers, 10, 10);
         //ctx.clearRect(0, 0, canvas.width, canvas.height);
-        console.log(numbers.data);
+        //console.log(numbers.data);
 
         var http = new XMLHttpRequest();
 
         http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 document.getElementById('prediction_res').value = this.responseText;
             }
         };
 
-        download("numbers", numbers.data);
+        //download("numbers", numbers.data);
+
+        var pixel_data = numbers.data;
+        var url = "http://localhost:5555/predict";
+
+        http.open("POST",url, true );
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        var params = "pixels=" + pixel_data.toString();
+        //console.log(params);
 
 
-        http.open("GET", "http://localhost:5555/predict");
-        http.send();
+        http.send(params);
 
         
       }, false);

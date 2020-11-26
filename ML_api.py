@@ -18,7 +18,7 @@ import numpy as np
 swagger = Swagger(app)
 
 
-@app.route('/predict', methods=[ 'GET'])
+@app.route('/predict', methods=[ 'POST'])
 def predict():
     """
     Generates documentation for iris predictor
@@ -32,11 +32,13 @@ def predict():
     # render_template('index.html', prediction=3)
 
     #DATA = request.args.get("pixels")
+    DATA = request.form["pixels"]
+    
     #path = request.files.get("input_file")
-    path = "/home/local/FARFETCH/tiago.cabo/Desktop/numbers.txt"
+    #path = "/home/local/FARFETCH/tiago.cabo/Desktop/numbers.txt"
 
-    with open(path) as file:
-      DATA = file.readlines()
+    #with open(path) as file:
+    #  DATA = file.readlines()
 
     #data = data[0].split(',')
 
@@ -48,13 +50,15 @@ def predict():
     #import matplotlib.pyplot as plt
     #plt.imshow(matrix,'Reds')
     #plt.show()
-    DATA = DATA[0].split(',')
-
+    DATA = DATA.split(',')
+    print(DATA)
     DATA = list(map(int, DATA))
     DATA = DATA[0::4]
     matrix = np.array(DATA).reshape((28,28))
 
     model = tf.keras.models.load_model('CNN_v0.model')
+
+    print(matrix)
     li = np.reshape(DATA, (1,28, 28, 1))
     predictions = model.predict(li)
     t = (np.argmax(predictions[0]))
