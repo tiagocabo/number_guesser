@@ -1,10 +1,10 @@
 FROM tensorflow/tensorflow
 
-MAINTAINER Tiago Cabo
+LABEL MAINTAINER="Tiago Cabo"
 
 COPY . /usr/local/python/number_guesser/
 
-EXPOSE 5000
+EXPOSE 8080
 WORKDIR /usr/local/python/number_guesser/
 RUN apt-get update
 ENV TZ=Europe/Lisbon
@@ -15,4 +15,4 @@ RUN python3 -m pip install --upgrade pip
 
 
 RUN python3 -m pip install -r requirements.txt
-CMD python test_model.py
+CMD python ML_api.py

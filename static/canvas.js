@@ -6,8 +6,8 @@ window.addEventListener('load', () => {
 
     //canvas.height = window.innerHeight;
     //canvas.width = window.innerWidth;
-    canvas.height = 28;
-    canvas.width = 28;
+    canvas.height = 200;
+    canvas.width = canvas.height;
     //variables
     let painting = false;
 
@@ -23,14 +23,14 @@ window.addEventListener('load', () => {
 
     function draw(e){
         if(!painting) return;
-        ctx.linweWidth = 10;
         ctx.lineCap = 'round';
-        ctx.strokeStyle = "red";
+        
         ctx.lineTo(e.clientX, e.clientY);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 10;
         ctx.stroke();
-        ctx.beginPath();
+        //ctx.beginPath();
         ctx.moveTo(e.clientX, e.clientY);
-
 
     }
 
@@ -53,6 +53,16 @@ window.addEventListener('load', () => {
     canvas.addEventListener('mousedown', startPosition);
     canvas.addEventListener('mouseup', endPosition);
     canvas.addEventListener('mousemove', draw);
+
+    /* CLEAR BUTTON */
+    document.getElementById('clear_button').addEventListener("click", function()
+    {
+        console.log("click clear");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('prediction_res').value = "Prediction";
+
+    }, false);
+
     // bind event handler to clear button
     document.getElementById('Predict').addEventListener('click', function() {
         //window.alert("cleared ");
@@ -73,7 +83,7 @@ window.addEventListener('load', () => {
         //download("numbers", numbers.data);
 
         var pixel_data = numbers.data;
-        var url = "http://localhost:5555/predict";
+        var url = "http://0.0.0.0:8080/predict";
 
         http.open("POST",url, true );
 

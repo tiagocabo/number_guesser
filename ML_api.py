@@ -16,10 +16,12 @@ import numpy as np
 
 
 swagger = Swagger(app)
+model = tf.keras.models.load_model('CNN_v0.model')
 
 
 @app.route('/predict', methods=[ 'POST'])
 def predict():
+
     """
     Generates documentation for iris predictor
     ---
@@ -33,39 +35,29 @@ def predict():
 
     #DATA = request.args.get("pixels")
     DATA = request.form["pixels"]
-    
-    #path = request.files.get("input_file")
-    #path = "/home/local/FARFETCH/tiago.cabo/Desktop/numbers.txt"
-
-    #with open(path) as file:
-    #  DATA = file.readlines()
-
-    #data = data[0].split(',')
-
-    #data = list(map(int, data))
-    #data = data[0::4]
-    #import numpy as np
-    #matrix = np.array(data).reshape((28,28))
 
     #import matplotlib.pyplot as plt
     #plt.imshow(matrix,'Reds')
     #plt.show()
     DATA = DATA.split(',')
-    print(DATA)
     DATA = list(map(int, DATA))
     DATA = DATA[0::4]
-    matrix = np.array(DATA).reshape((28,28))
+    matrix = np.array(DATA).reshape(int(np.sqrt(len(DATA))),int(np.sqrt(len(DATA)))) 
+    
+    image = tf.constant(matrix)
+    image = image[tf.newaxis, ..., tf.newaxis]
+    
+    resized_image = tf.image.resize(image, [28,28])
+    resized_image = resized_image[0,...,0].numpy()
 
-    model = tf.keras.models.load_model('CNN_v0.model')
+    
+    resized_image = np.reshape(resized_image, (1,28, 28, 1))
 
-    print(matrix)
-    li = np.reshape(DATA, (1,28, 28, 1))
-    predictions = model.predict(li)
+    predictions = model.predict(resized_image)
     t = (np.argmax(predictions[0]))
-
-
     return str(t)
 
 
+
 if __name__ == '__main__':
-    app.run(host='localhost', port=5555, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)

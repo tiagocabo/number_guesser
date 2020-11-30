@@ -12,7 +12,7 @@ clean:
 
 docker_init:
 	sudo docker build -t number_guesser .
-	sudo docker run -p 5000:5000 --name number_guesser number_guesser
+	sudo docker run -p 8080:8080 --name number_guesser number_guesser
 
 docker_stop:
 	echo "deleting existing docker..."
