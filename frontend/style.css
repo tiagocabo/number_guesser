@@ -1,0 +1,33 @@
+* {
+margin: 10;
+padding: 10;
+box-sizing: border-box;
+}
+
+#canvas {
+    border: 2px solid black;
+}
+
+#buttons {
+    position: absolute;
+    top: 210px;
+    left: 10px;
+  }
+
+#buttons > input {
+  padding: 10px;
+  display: block;
+  margin-top: 5px;
+}
+
+#clear_button {
+  position: absolute;
+    top: 90;
+    left: 80px;
+}
+
+#clear_button > input {
+  padding: 10px;
+  display: block;
+  margin-top: 5px;
+}
