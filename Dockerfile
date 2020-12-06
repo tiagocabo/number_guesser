@@ -16,3 +16,5 @@ RUN python3 -m pip install --upgrade pip
 
 RUN python3 -m pip install -r requirements.txt
 CMD python ML_api.py
+
+ENTRYPOINT [ "python" , "ML_api.py"]
