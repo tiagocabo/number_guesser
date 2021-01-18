@@ -8,3 +8,20 @@ This is the current version.
 
 I follow the training using tensorboard. Check below the results. 
 ![model_training](/images/model_training.png)
+
+# Getting started
+
+To setup this project in your laptop, please clone the repo em make
+
+```bash
+make venv
+```
+
+Then init the project and test a couple predictions,
+```python
+source venv/bin/activate
+
+python draw_number.py
+```
+
+

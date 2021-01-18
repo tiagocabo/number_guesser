@@ -1,11 +1,14 @@
 
-import sys, os
 import pygame
 import tensorflow as tf
-import matplotlib.pyplot as plt
 import numpy as np
 from tkinter import *
 from tkinter import messagebox
+import os
+try:
+    os.environ["DISPLAY"]
+except:
+    os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 class pixel(object):
     def __init__(self, x, y, width, height):
