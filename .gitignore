@@ -1,5 +1,4 @@
+.coverage
+.idea
+.ipynb*
 venv/
-.idea/
-logs/
-.ipynb_checkpoints/
-__pycache__
