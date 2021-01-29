@@ -1,9 +1,11 @@
+import pickle
+import sys
 
 from flask import Flask, request
 from flask import Flask, render_template, redirect, url_for
 from flask_cors import CORS
 import tensorflow as tf
-
+from bson.binary import Binary
 from flasgger import Swagger
 import pandas as pd
 from sklearn.metrics import accuracy_score
@@ -48,13 +50,47 @@ def predict():
     image = image[tf.newaxis, ..., tf.newaxis]
     
     resized_image = tf.image.resize(image, [28,28])
-    resized_image = resized_image[0,...,0].numpy()
 
+
+
+    resized_image = resized_image[0,...,0].numpy()
+    from PIL import Image
+    print(type(resized_image))
+    print(resized_image)
+    from matplotlib import pyplot as plt
+    #plt.imshow(resized_image, interpolation='nearest')
+    #plt.show()
+
+    save_to_mongo = resized_image.tobytes()
+    #save_to_mongo = "tiago"
+    print(sys.getsizeof(save_to_mongo))
+    print("save to mongo type:", type(save_to_mongo))
     
     resized_image = np.reshape(resized_image, (1,28, 28, 1))
 
     predictions = model.predict(resized_image)
     t = (np.argmax(predictions[0]))
+
+    import pymongo
+
+    mongo_secret = "dbUserPassword"
+    db_name = "number_guesser"
+    client = pymongo.MongoClient(
+        f"mongodb+srv://dbUser:{mongo_secret}@cluster0.ymgtu.mongodb.net/{db_name}?retryWrites=true&w=majority")
+
+    db = client.database
+
+    result = {
+        "draw_data": save_to_mongo,
+        "prediction": int(t),
+    }
+
+
+    collection = db.number_guesser
+    print("start to mongo")
+    print(result)
+    collection.insert_one(result)
+    print("end write")
     return str(t)
 
 
