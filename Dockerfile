@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow
+FROM  python:3.9
 
 LABEL MAINTAINER="Tiago Cabo"
 
@@ -10,11 +10,11 @@ RUN apt-get update
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get -y install python3-tk
 RUN python3 -m pip install --upgrade pip
 
 
-RUN python3 -m pip install -r requirements.txt
+RUN python3 -m pip install pipenv
+RUN pipenv install --system --skip-lock # to avoid venv definition
 CMD python ML_api.py
 
 ENTRYPOINT [ "python" , "ML_api.py"]

@@ -18,8 +18,11 @@ import numpy as np
 swagger = Swagger(app)
 model = tf.keras.models.load_model('CNN_v0.model')
 
+@app.route('/', methods=['GET'])
+def ping():
+    return "Hey! I am working"
 
-@app.route('/predict', methods=[ 'POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
 
     """

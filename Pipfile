@@ -5,9 +5,8 @@ name = "pypi"
 
 [packages]
 numpy = "*"
-pygame = "*"
 keras = "*"
-tensorflow-macos = "*"
+tensorflow = "*"
 flask = "*"
 flask-cors = "*"
 flasgger = "*"
@@ -18,4 +17,4 @@ scikit-learn = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.9"
