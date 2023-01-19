@@ -1,18 +1,14 @@
 
-from flask import Flask, request
-from flask import Flask, render_template, redirect, url_for
+from flask import request, Flask
 from flask_cors import CORS
 import tensorflow as tf
-
 from flasgger import Swagger
-import pandas as pd
-from sklearn.metrics import accuracy_score
+import numpy as np
+
 
 app = Flask(__name__)
 CORS(app)
 
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 swagger = Swagger(app)

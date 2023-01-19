@@ -4,15 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-numpy = "*"
-keras = "*"
 tensorflow = "*"
 flask = "*"
 flask-cors = "*"
 flasgger = "*"
-matplotlib = "*"
-pandas = "*"
-scikit-learn = "*"
+numpy = "*"
 
 [dev-packages]
 
