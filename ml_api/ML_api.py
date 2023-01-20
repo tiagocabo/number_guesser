@@ -1,25 +1,24 @@
 
-from flask import Flask, request
-from flask import Flask, render_template, redirect, url_for
+from flask import request, Flask
 from flask_cors import CORS
 import tensorflow as tf
-
 from flasgger import Swagger
-import pandas as pd
-from sklearn.metrics import accuracy_score
+import numpy as np
+
 
 app = Flask(__name__)
 CORS(app)
 
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 swagger = Swagger(app)
 model = tf.keras.models.load_model('CNN_v0.model')
 
+@app.route('/', methods=['GET'])
+def ping():
+    return "Hey! I am working"
 
-@app.route('/predict', methods=[ 'POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
 
     """

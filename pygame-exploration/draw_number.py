@@ -1,14 +1,8 @@
-
+import time
 import pygame
 import tensorflow as tf
 import numpy as np
-from tkinter import *
-from tkinter import messagebox
-import os
-try:
-    os.environ["DISPLAY"]
-except:
-    os.environ["SDL_VIDEODRIVER"] = "dummy"
+
 
 class pixel(object):
     def __init__(self, x, y, width, height):
@@ -122,18 +116,24 @@ class grid(object):
 
 
 def guess(li):
-    model = tf.keras.models.load_model('CNN_v0.model')
+    model = tf.keras.models.load_model('../ml_api/CNN_v0.model')
     li = np.reshape(li, (1,28, 28, 1))
     predictions = model.predict(li)
     print(predictions[0])
     t = (np.argmax(predictions[0]))
     print("I predict this number is a:", t)
-    window = Tk()
-    window.withdraw()
-    messagebox.showinfo("Prediction", "I predict this number is a: " + str(t))
-    window.destroy()
-    # plt.imshow(li[0], cmap=plt.cm.binary)
-    # plt.show()
+    font1 = pygame.font.SysFont('freesanbold.ttf', 50)
+
+    text1 = font1.render(f'I predict {t}', True, (0, 255, 0))
+    # create a rectangular object for the
+    # text surface object
+    textRect1 = text1.get_rect()
+
+    # setting center for the first text
+    textRect1.center = (250, 540)
+
+    win.blit(text1, textRect1)
+    pygame.display.update()
 
 
 def main():
@@ -147,7 +147,7 @@ def main():
                 li = g.convert_binary()
 
                 guess(li)
-
+                time.sleep(5)
                 g.generatePixels()
 
             if pygame.mouse.get_pressed()[0]:

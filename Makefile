@@ -1,20 +1,19 @@
-venv: venv/bin/activate
 
-venv/bin/activate: requirements.txt
-	test -d venv || python3 -m venv venv
-	. venv/bin/activate; pip install -r requirements.txt
-	echo venv/bin/activate
+activate_api_venv_macos:
+	python -m venv venv_api_macos && export VIRTUAL_ENV=venv_api_macos
+	cd ml_api/envs/macos-env && pipenv install
+	echo venv_api_macos/bin/activate
 
-clean:
-	rm -rf venv
-	rm -rf .idea/
-	find -iname "*.pyc" -delete
+activate_api_venv_linux:
+	python -m venv venv_api_linux && export VIRTUAL_ENV=venv_api_linux
+	cd ml_api/envs/linux && pipenv install
+	echo venv_api_linux/bin/activate
 
-docker_init:
+api_docker_init:
 	sudo docker build -t number_guesser .
 	sudo docker run -p 8080:8080 --name number_guesser number_guesser
 
-docker_stop:
+api_docker_stop:
 	echo "deleting existing docker..."
 	sudo docker stop number_guesser
 	sudo docker rm number_guesser

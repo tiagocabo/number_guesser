@@ -83,7 +83,7 @@ window.addEventListener('load', () => {
         //download("numbers", numbers.data);
 
         var pixel_data = numbers.data;
-        var url = "https://numberpredictor.azurewebsites.net/predict";
+        var url = "http://3.8.91.75:8080/predict";
 
         http.open("POST",url, true );
 
