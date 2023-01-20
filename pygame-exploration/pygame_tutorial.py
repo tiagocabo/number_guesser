@@ -19,7 +19,7 @@ pygame.display.set_caption('My first game!')
 clock = pygame.time.Clock()
 
 # load image
-dinoImg = pygame.image.load('images/googleDino.png')
+dinoImg = pygame.image.load('../images/googleDino.png')
 dinoImg = pygame.transform.scale(dinoImg, (50, 30))
 
 def display_score(count):

@@ -116,7 +116,7 @@ class grid(object):
 
 
 def guess(li):
-    model = tf.keras.models.load_model('CNN_v0.model')
+    model = tf.keras.models.load_model('../ml_api/CNN_v0.model')
     li = np.reshape(li, (1,28, 28, 1))
     predictions = model.predict(li)
     print(predictions[0])
